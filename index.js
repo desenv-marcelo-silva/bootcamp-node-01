@@ -28,12 +28,12 @@ server.put("/projects/:id", (req, res) => {
 server.delete("/projects/:id", (req, res) => {
   const { id } = req.params;
 
-  proj = projetos.filter(proj => proj.id !== id);
-  delete projetos;
+  projetos.splice(
+    projetos.find(proj => proj.id == id),
+    1
+  );
 
-  const projetos = [...proj];
-
-  return res.json(projetos);
+  return res.sendStatus(200);
 });
 
 server.listen(2020);
