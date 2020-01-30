@@ -8,7 +8,7 @@ let contadorRequisicao = 0;
 const projetos = [];
 
 contarRequisicoesMiddleware = function(req, res, next) {
-  console.log(++contadorRequisicao);
+  console.log(`${++contadorRequisicao} requisições executadas`);
   return next();
 };
 
