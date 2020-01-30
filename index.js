@@ -3,7 +3,15 @@ const express = require("express");
 const server = express();
 
 server.use(express.json());
+let contadorRequisicao = 0;
+
 const projetos = [];
+
+contarRequisicoesMiddleware = function(req, res, next) {
+  console.log(++contadorRequisicao);
+  return next();
+};
+
 validarProjetoExisteMiddleware = function(req, res, next) {
   const { id } = req.params;
   if (projetos.findIndex(projeto => projeto.id == id) > -1) {
@@ -11,6 +19,8 @@ validarProjetoExisteMiddleware = function(req, res, next) {
   }
   return res.status(400).json({ Erro: `Projeto ${id} não existe.` });
 };
+
+server.use(contarRequisicoesMiddleware);
 
 server.post("/projects", (req, res) => {
   projetos.push(req.body);
